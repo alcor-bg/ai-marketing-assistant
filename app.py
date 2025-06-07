@@ -18,8 +18,11 @@ st.set_page_config(
 
 # --- OpenAI API Setup ---
 # Load environment variables
-# load_dotenv(override=True)
+load_dotenv(override=True)
 # OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
+# Database Configuration
+DB_FILE=os.getenv("DB_FILE", "events.db")
 
 # It's recommended to set the API key as an environment variable.
 # However, for this app, we'll use the sidebar input for ease of use.
@@ -35,7 +38,7 @@ else:
 def initialize_database():
     """Initializes the SQLite database and creates the events table if it doesn't exist."""
     try:
-        conn = sqlite3.connect('events.db')
+        conn = sqlite3.connect(DB_FILE)
         c = conn.cursor()
         c.execute('''
             CREATE TABLE IF NOT EXISTS events (
